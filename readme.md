@@ -3,3 +3,5 @@
 - pip install fillpdf
 - pip install tkinter
 - python app.py
+
+- crie a pasta "arquivos_gerados" dentro de ./dist
