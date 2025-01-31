@@ -4,6 +4,9 @@ from tkinter import filedialog, messagebox
 from fillpdf import fillpdfs
 
 def gerar_pdfs():
+    if not verificar_campos():
+        return  # nao continua
+
     nome = entry_nome.get()
     data_nasc = entry_data_nasc.get()
     nome_mae = entry_nome_mae.get()
@@ -64,38 +67,54 @@ def gerar_pdfs():
             camposPDF3[20]: cpf,
         }
 
-        output_dir = "./arquivos_gerados"
+        output_dir = f"./arquivos_gerados/{cpf}"
         os.makedirs(output_dir, exist_ok=True)
 
-        fillpdfs.write_fillable_pdf(pdf1_path, f'{output_dir}/{rgp}_requerimento.pdf', data_dict1)
-        fillpdfs.write_fillable_pdf(pdf2_path, f'{output_dir}/{rgp}_anexoIII.pdf', data_dict2)
-        fillpdfs.write_fillable_pdf(pdf3_path, f'{output_dir}/{rgp}_FLPP.pdf', data_dict3)
+        fillpdfs.write_fillable_pdf(pdf1_path, f'{output_dir}/requerimento.pdf', data_dict1)
+        fillpdfs.write_fillable_pdf(pdf2_path, f'{output_dir}/anexoIII.pdf', data_dict2)
+        fillpdfs.write_fillable_pdf(pdf3_path, f'{output_dir}/FLPP.pdf', data_dict3)
 
-        messagebox.showinfo("Sucesso", "PDFs gerados com sucesso!")
+        messagebox.showinfo("Sucesso", "AnexoIII.pdf,  requerimento.pdf  e  FLPP.pdf \nGerados com sucesso!")
     except Exception as e:
         messagebox.showerror("Erro", f"Ocorreu um erro: {e}")
 
+
+# verificacao de campos
+def verificar_campos():
+    for entry in entries:
+        if entry.get().strip() == "": 
+            messagebox.showwarning("Campo vazio", "Por favor, preencha todos os campos.")
+            return False  
+    return True 
+
+
+# interface grafica
 root = tk.Tk()
 root.title("Preenchimento de PDFs")
 
-labels = ["Nome Completo", "Data de Nascimento", "Nome da Mãe", "Nome do Pai", "CPF", "RG", "Data Emissão RG", "PIS", "CEI", "Rua", "Número", "Bairro"]
+# título H1
+tk.Label(root, text="Bot preenchedor de pdfs", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=5)
+tk.Label(root, text="Sera preenchido e GERADO os pdfs: AnexoIII, requerimento e FLPP", font=("Arial", 10, "bold"),fg="red").grid(row=1, column=0, columnspan=2, pady=0)
+
+labels = ["Nome Completo", "Data de Nascimento", "Nome da Mãe", "Nome do Pai", "CPF (com ou sem  .  e  -)", "RG (somente números)", "Data Emissão RG", "PIS/NIS/NIT", "Nº Matricula CEI", "Rua", "Nº da casa", "Bairro"]
 entries = []
 
+# Preenchendo os campos com Labels e Entry
 for i, label in enumerate(labels):
-    tk.Label(root, text=label).grid(row=i, column=0, padx=5, pady=5)
+    tk.Label(root, text=label).grid(row=i+2, column=0, padx=5, pady=5)
     entry = tk.Entry(root, width=70)
-    entry.grid(row=i, column=1, padx=5, pady=5)
+    entry.grid(row=i+2, column=1, padx=5, pady=5)
     entries.append(entry)
 
 entry_nome, entry_data_nasc, entry_nome_mae, entry_nome_pai, entry_cpf, entry_rg, entry_data_emissao_rg, entry_pis, entry_cei, entry_rua, entry_numero, entry_bairro = entries
 
 var_sexo = tk.StringVar(value="M")
-tk.Label(root, text="Sexo").grid(row=len(labels), column=0, padx=5, pady=5)
-tk.Radiobutton(root, text="Masculino", variable=var_sexo, value="M").grid(row=len(labels), column=1, padx=5, pady=5)
-tk.Radiobutton(root, text="Feminino", variable=var_sexo, value="F").grid(row=len(labels)+1, column=1, padx=5, pady=5)
+tk.Label(root, text="Sexo").grid(row=len(labels)+2, column=0, padx=5, pady=5)
+tk.Radiobutton(root, text="Masculino", variable=var_sexo, value="M").grid(row=len(labels)+2, column=1, padx=5, pady=5)
+tk.Radiobutton(root, text="Feminino", variable=var_sexo, value="F").grid(row=len(labels)+3, column=1, padx=5, pady=5)
 
 btn_gerar = tk.Button(root, text="Gerar PDFs", command=gerar_pdfs)
-btn_gerar.grid(row=len(labels)+2, column=0, columnspan=2, pady=10)
+btn_gerar.grid(row=len(labels)+4, column=0, columnspan=2, pady=10)
 
 pdf1_path = "edit1.pdf"
 pdf2_path = "edit2.pdf"
