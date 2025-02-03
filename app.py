@@ -82,10 +82,10 @@ def gerar_pdfs():
 # verificacao de campos
 def verificar_campos():
     for entry in entries:
-        if entry.get().strip() == "": 
+        if entry.get().strip() == "":
             messagebox.showwarning("Campo vazio", "Por favor, preencha todos os campos.")
-            return False  
-    return True 
+            return False
+    return True
 
 
 # interface grafica

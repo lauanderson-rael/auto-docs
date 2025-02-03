@@ -1,4 +1,4 @@
-# Automacao para escrever em pdf
+# Automacao para escrever em pdfs editaveis
 ## como rodar
 - pip install fillpdf
 - pip install tkinter
