@@ -4,7 +4,7 @@ doc = Document("residencia.docx")
 
 
 #local 1
-texto_nome = 'Na falta de documentos próprios, aptos que comprovem minha residência e domicílio, eu,'
+texto_nome = 'GERIVALDO BARBOSA'
 texto_cpf = 'Cadastro de Pessoas Físicas (CPF) sob o nº'
 texto_rg = 'Carteira de Identidade (RG) nº'
 texto_endereco = 'no endereço:'
@@ -19,10 +19,9 @@ rua_e_numero = 'RUA SAO BRAZ, 45'
 bairro = 'ANIL'
 
 # Percorrer os parágrafos para encontrar a palavra desejada e adicionar texto
-for para in doc.paragraphs:
-    if texto_nome in para.text: 
-        para.text = para.text.replace(texto_nome, f'{texto_nome} {nome} ')  # Modifica o texto
-    
+# for para in doc.paragraphs:
+#     if texto_nome in para.text: 
+        
 
 
 # Salvar as alterações
