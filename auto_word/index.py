@@ -82,10 +82,10 @@ tk.Label(root, text="RG:").grid(row=2, column=0, padx=10, pady=5)
 entry_rg = tk.Entry(root, width=70)
 entry_rg.grid(row=2, column=1, padx=10, pady=5)
 
-tk.Label(root, text="Sexo:").grid(row=3, column=0, padx=2, pady=5)
+#tk.Label(root, text="Sexo:").grid(row=3, column=0, padx=2, pady=5)
 var_sexo = tk.IntVar()
-tk.Radiobutton(root, text="Masculino", variable=var_sexo, value=0).grid(row=3, column=1, padx=10, pady=5)
-tk.Radiobutton(root, text="Feminino", variable=var_sexo, value=1).grid(row=3, column=2, padx=10, pady=5)
+tk.Radiobutton(root, text="Sexo masculino", variable=var_sexo, value=0).grid(row=3, column=1, padx=0, pady=5)
+tk.Radiobutton(root, text="Sexo feminino", variable=var_sexo, value=1).grid(row=3, column=0, padx=0, pady=5)
 
 tk.Label(root, text="Estado Civil:").grid(row=4, column=0, padx=10, pady=5)
 entry_estado_civil = tk.Entry(root, width=70)
@@ -99,11 +99,11 @@ tk.Label(root, text="Bairro:").grid(row=6, column=0, padx=10, pady=5)
 entry_bairro = tk.Entry(root, width=70)
 entry_bairro.grid(row=6, column=1, padx=10, pady=5)
 
-tk.Label(root, text="Data (Residência):").grid(row=7, column=0, padx=10, pady=5)
+tk.Label(root, text='Data de hoje ("5 de janeiro de 20XX"):').grid(row=7, column=0, padx=10, pady=5)
 entry_data = tk.Entry(root, width=70)
 entry_data.grid(row=7, column=1, padx=10, pady=5)
 
-tk.Label(root, text="Data de Filiação:").grid(row=8, column=0, padx=10, pady=5)
+tk.Label(root, text="Data de Filiação (DD/MM/AAAA)").grid(row=8, column=0, padx=10, pady=5)
 entry_data_filiacao = tk.Entry(root, width=70)
 entry_data_filiacao.grid(row=8, column=1, padx=10, pady=5)
 
