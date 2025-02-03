@@ -12,11 +12,11 @@ texto_data2 = "Coelho Neto, 22 de agosto de 2024"
 
 # Dados
 nome_completo= 'LAUANDERSON RAEL COSTA GOMES'
-cpf = '123.456.789-22'
+cpf = '123.456.789-24'
 rg = '1234567892001-0'
 sexoF = False
 nacionalidade = 'BRASILEIRA' if sexoF else 'BRASILEIRO'
-estado_civil = 'UNÃO ESTÁVEL'
+estado_civil = 'UNIÃO ESTÁVEL'
 rua_e_numero = 'RUA SAO BRAZ, 45'
 bairro = 'ANIL'
 data = "03 de Fevereiro de 2024"
@@ -33,12 +33,18 @@ for para in doc.paragraphs:
 for para in doc2.paragraphs:
     if texto_informacoes2 in para.text:
         para.text = para.text.replace(texto_informacoes2, f'Eu, {nome_completo}, CPF: {cpf}, RG: {rg}, residente no endereço completo: {rua_e_numero}, Bairro: {bairro}, declaro ser filiado à Entidade abaixo especificada:')
-    if "20/08/2015" in para.text:
-        novo_texto = para.text.replace("20/08/2015", data_filiacao)
-        para.clear()  # Remove o texto original
-        para.add_run(novo_texto)
     if texto_data2 in para.text:
         para.text = para.text.replace(texto_data2, f'Coelho Neto, {data}')
+
+for tabela in doc2.tables:
+    for linha in tabela.rows:
+        for celula in linha.cells:
+            if '20/08/2015' in celula.text:
+                celula.text= '' # Remove o texto original
+                paragrafo = celula.paragraphs[0]
+                paragrafo.add_run("Data de Filiação:\n")
+                paragrafo.add_run(data_filiacao).bold = True
+                
 
 # Salvar as alterações
 nova_pasta = 'salvos'
