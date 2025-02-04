@@ -5,7 +5,10 @@ from tkinter import messagebox
 import webbrowser 
 
 def gerar_documentos():
-    # Obter os valores dos campos
+    if not verificar_campos():
+        return  # nao continua
+    
+    # Obter os valores
     nome_completo = entry_nome.get()
     cpf = entry_cpf.get()
     rg = entry_rg.get()
@@ -15,8 +18,6 @@ def gerar_documentos():
     bairro = entry_bairro.get()
     data = entry_data.get()
     data_filiacao = entry_data_filiacao.get()
-
-    # Definir nacionalidade com base no sexo
     nacionalidade = 'BRASILEIRA' if sexoF else 'BRASILEIRO'
 
     # Carregar os documentos
@@ -54,7 +55,7 @@ def gerar_documentos():
                     paragrafo.add_run(data_filiacao).bold = True
 
     # Salvar as alterações
-    nova_pasta = 'salvos'
+    nova_pasta = 'declaracoes_geradas'
     os.makedirs(nova_pasta, exist_ok=True)
     caminho_arquivo = os.path.join(nova_pasta, f"{cpf}_residencia.docx")
     caminho_arquivo2 = os.path.join(nova_pasta, f"{cpf}_filiacao.docx")
@@ -65,55 +66,56 @@ def gerar_documentos():
 
 def abrir_link(event):
     webbrowser.open("https://github.com/lauanderson-rael")
-# Criar a janela principal
+
+def verificar_campos():
+    for entry in entries:
+        if entry.get().strip() == "": 
+            messagebox.showwarning("Campo vazio", "Por favor, preencha todos os campos.")
+            return False  
+    return True 
+
+def fechar_janela():
+    print("fechar")
+    root.destroy()
+
+# INTERFACE GRAFICA
 root = tk.Tk()
 root.title("Gerador de Declarações")
 
+# título H1
+tk.Label(root, text="Bot gerador de Declarações", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=2)
+tk.Label(root, text="Sera gerado as declarações de FILIAÇÃO E RESIDENCIA", font=("Arial", 10, "bold"),fg="red").grid(row=1, column=0, columnspan=2, pady=0)
+
+labels = ["Nome Completo", "CPF:", "RG", "Estado civil:", "Rua e número", "Bairro", 'Data de hoje ("5 de janeiro de 20XX"):', "Data de Filiação (DD/MM/AAAA)"]
+entries = []
+
+# Preenchendo os campos com Labels e Entry
+for i, label in enumerate(labels):
+    tk.Label(root, text=label).grid(row=i+2, column=0, padx=5, pady=5)
+    entry = tk.Entry(root, width=70)
+    entry.grid(row=i+2, column=1, padx=5, pady=5)
+    entries.append(entry)
+
+entry_nome, entry_cpf, entry_rg, entry_estado_civil,entry_rua, entry_bairro, entry_data, entry_data_filiacao = entries
+
 # Campos de entrada
-tk.Label(root, text="Nome Completo:").grid(row=0, column=0, padx=10, pady=5)
-entry_nome = tk.Entry(root, width=70)
-entry_nome.grid(row=0, column=1, padx=10, pady=5)
 
-tk.Label(root, text="CPF:").grid(row=1, column=0, padx=10, pady=5)
-entry_cpf = tk.Entry(root, width=70)
-entry_cpf.grid(row=1, column=1, padx=10, pady=5)
-
-tk.Label(root, text="RG:").grid(row=2, column=0, padx=10, pady=5)
-entry_rg = tk.Entry(root, width=70)
-entry_rg.grid(row=2, column=1, padx=10, pady=5)
-
-#tk.Label(root, text="Sexo:").grid(row=3, column=0, padx=2, pady=5)
 var_sexo = tk.IntVar()
-tk.Radiobutton(root, text="Sexo masculino", variable=var_sexo, value=0).grid(row=3, column=1, padx=0, pady=5)
-tk.Radiobutton(root, text="Sexo feminino", variable=var_sexo, value=1).grid(row=3, column=0, padx=0, pady=5)
-
-tk.Label(root, text="Estado Civil:").grid(row=4, column=0, padx=10, pady=5)
-entry_estado_civil = tk.Entry(root, width=70)
-entry_estado_civil.grid(row=4, column=1, padx=10, pady=5)
-
-tk.Label(root, text="Rua e Número:").grid(row=5, column=0, padx=10, pady=5)
-entry_rua = tk.Entry(root, width=70)
-entry_rua.grid(row=5, column=1, padx=10, pady=5)
-
-tk.Label(root, text="Bairro:").grid(row=6, column=0, padx=10, pady=5)
-entry_bairro = tk.Entry(root, width=70)
-entry_bairro.grid(row=6, column=1, padx=10, pady=5)
-
-tk.Label(root, text='Data de hoje ("5 de janeiro de 20XX"):').grid(row=7, column=0, padx=10, pady=5)
-entry_data = tk.Entry(root, width=70)
-entry_data.grid(row=7, column=1, padx=10, pady=5)
-
-tk.Label(root, text="Data de Filiação (DD/MM/AAAA)").grid(row=8, column=0, padx=10, pady=5)
-entry_data_filiacao = tk.Entry(root, width=70)
-entry_data_filiacao.grid(row=8, column=1, padx=10, pady=5)
+tk.Radiobutton(root, text="Sexo masculino", variable=var_sexo, value=0).grid(row=10, column=1, padx=0, pady=5)
+tk.Radiobutton(root, text="Sexo feminino", variable=var_sexo, value=1).grid(row=10, column=0, padx=0, pady=5)
 
 # Botão para gerar documentos
-btn_gerar = tk.Button(root, text="Gerar Documentos", command=gerar_documentos)
-btn_gerar.grid(row=9, column=0, columnspan=2, pady=10)
+btn_gerar = tk.Button(root, text="Gerar Documentos", bg= "azure3" ,command=gerar_documentos)
+btn_gerar.grid(row=11, column=0, columnspan=2, pady=10)
+
+# novo
+btn_fechar = tk.Button(root, text="Sair", command=fechar_janela, bg='red',fg='white', width=5)
+btn_fechar.grid(row=11, column=1, columnspan=2, pady=10)
+# novo
 
 # Footer com o nome do criador
 footer = tk.Label(root, text="Desenvolvido por @lauanderson-rael", fg="blue", cursor="hand2")
-footer.grid(row=10, column=0, columnspan=2, pady=10)
+footer.grid(row=12, column=0, columnspan=2, pady=10)
 footer.bind("<Button-1>", abrir_link)  # Vincular o clique ao link
 
 # Iniciar a interface gráfica
