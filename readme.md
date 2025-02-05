@@ -1,4 +1,4 @@
-# Automacao para sobrescrevern e salvar arquivos word e pdf
+# Automacao para sobrescrever e salvar arquivos word e pdf
 ## como rodar
 - pip install python-docx
 - pip install fillpdf
@@ -11,6 +11,6 @@
 
 ## Telas
 
-<img style="margin: 0 70px" src="./images/image1.png" alt="image1" width="400px"><br>
+<img style="margin: 0 70px" src="./images/image1.png" alt="image1" width="300px"><br>
 <img src="./images/image2.png" alt="image1" width="700px"><br>
-<img src="./images/image2.png" alt="image1" width="700px"><br>
+<img src="./images/image3.png" alt="image1" width="700px"><br>
