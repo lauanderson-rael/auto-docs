@@ -1,4 +1,4 @@
-## Automação para sobrescrever e salvar arquivos word e pdfs interativos 
+## Automação para sobrescrever e salvar arquivos .docx e PDFs interativos 
 ### objetivo
 Auxiliar eu e meus colegas de trabalho com tarefas repetitivas, onde manipulavamos arquivo word e pdfs interativos, preenchendo campos e salvando os arquivos com seus respectivos nomes.
 ### como rodar
