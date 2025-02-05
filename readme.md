@@ -1,4 +1,4 @@
-# Automacao para sobrescrever arquivos word e pdf
+# Automacao para sobrescrevern e salvar arquivos word e pdf
 ## como rodar
 - pip install python-docx
 - pip install fillpdf
