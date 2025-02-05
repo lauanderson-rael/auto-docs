@@ -1,6 +1,6 @@
 ## Automação para sobrescrever e salvar arquivos .docx e PDFs interativos 
 ### objetivo
-Auxiliar eu e meus colegas de trabalho com tarefas repetitivas, onde manipulavamos arquivo word e pdfs interativos, preenchendo campos e salvando os arquivos com seus respectivos nomes.
+Auxiliar a mim e aos meus colegas de trabalho com tarefas repetitivas, onde manipulavamos arquivo word e pdfs interativos, preenchendo campos e salvando os arquivos com seus respectivos nomes.
 ### como rodar
 - pip install python-docx
 - pip install fillpdf
