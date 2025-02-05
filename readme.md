@@ -11,6 +11,6 @@
 
 ## Telas
 
-<img style="margin: 0 70px" src="./images/image1.png" alt="image1" width="300px"><br>
+<img style="margin: 0 -32px" src="./images/image1.png" alt="image1" width="700px"><br>
 <img src="./images/image2.png" alt="image1" width="700px"><br>
 <img src="./images/image3.png" alt="image1" width="700px"><br>

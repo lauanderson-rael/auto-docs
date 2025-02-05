@@ -54,18 +54,19 @@ def gerar_documentos():
                     paragrafo.add_run("Data de Filiação:\n")
                     paragrafo.add_run(data_filiacao).bold = True
 
-    # Salvando
-    nova_pasta = 'declaracoes_geradas'
+    # salvando
+    nova_pasta = os.path.join("declaracoes_geradas",nome_completo)
     os.makedirs(nova_pasta, exist_ok=True)
-    caminho_arquivo = os.path.join(nova_pasta, f"{cpf}_residencia.docx")
-    caminho_arquivo2 = os.path.join(nova_pasta, f"{cpf}_filiacao.docx")
+
+    caminho_arquivo = os.path.join(nova_pasta, "declaracao_residencia.docx")
+    caminho_arquivo2 = os.path.join(nova_pasta, "declaracao_filiacao.docx")
     doc.save(caminho_arquivo)
     doc2.save(caminho_arquivo2)
-
     messagebox.showinfo("Sucesso", f"Declaração de residência e filiação de {nome_completo} criadas com sucesso!")
 
-def abrir_link(event):
-    webbrowser.open("https://github.com/lauanderson-rael")
+
+# def abrir_link(event):
+#     webbrowser.open("https://github.com/lauanderson-rael")
 
 def verificar_campos():
     for entry in entries:
@@ -86,7 +87,7 @@ root.title("Gerador de Declarações")
 tk.Label(root, text="Gerador de Declarações", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=2)
 tk.Label(root, text="Sera gerado as declarações de FILIAÇÃO E RESIDENCIA em .docx", font=("Arial", 10, "bold"),fg="red").grid(row=1, column=0, columnspan=2, pady=0)
 
-labels = ["Nome Completo", "CPF:", "RG", "Estado civil:", "Rua e número", "Bairro", 'Data de hoje ("5 de janeiro de 20XX"):', "Data de Filiação (DD/MM/AAAA)"]
+labels = ["Nome Completo", "CPF:", "RG", "Estado civil:", 'Rua e número ("Rua X, 123")', "Bairro", 'Data de hoje ("5 de janeiro de 20XX"):', "Data de Filiação (DD/MM/AAAA)"]
 entries = []
 
 # Preenchendo os campos com Labels e Entry
@@ -114,9 +115,8 @@ btn_fechar.grid(row=11, column=1, columnspan=2, pady=10)
 # novo
 
 # Footer com o nome do criador
-footer = tk.Label(root, text="Desenvolvido por @lauanderson-rael", fg="blue", cursor="hand2")
-footer.grid(row=12, column=0, columnspan=2, pady=10)
-footer.bind("<Button-1>", abrir_link)  # Vincular o clique ao link
+# footer = tk.Label(root, text="Desenvolvido por @lauanderson-rael", fg="blue", cursor="hand2")
+# footer.grid(row=12, column=0, columnspan=2, pady=10)
+# footer.bind("<Button-1>", abrir_link) 
 
-# Iniciar a interface gráfica
 root.mainloop()

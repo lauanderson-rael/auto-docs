@@ -52,7 +52,7 @@ def gerar_pdfs():
 
         data_dict3 = {
             camposPDF3[1]: nome,
-            camposPDF3[2]: cpf,
+            camposPDF3[2]: f"\n{cpf}",
             camposPDF3[3]: rg,
             camposPDF3[4]: data_emissao_rg,
             camposPDF3[5]: data_nasc,
@@ -64,11 +64,11 @@ def gerar_pdfs():
             camposPDF3[13]: rgp,
             camposPDF3[15]: 'x' if sexo_fem else '',
             camposPDF3[16]: 'x' if not sexo_fem else '',
-            camposPDF3[19]: nome,
-            camposPDF3[20]: cpf,
+            camposPDF3[18]: nome,
+            camposPDF3[19]: cpf,
         }
 
-        output_dir = f"./requerimentos_gerados/{cpf}"
+        output_dir = f"./requerimentos_gerados/{nome}"
         os.makedirs(output_dir, exist_ok=True)
 
         fillpdfs.write_fillable_pdf(pdf1_path, f'{output_dir}/requerimento.pdf', data_dict1)
@@ -87,8 +87,8 @@ def verificar_campos():
             return False
     return True
 
-def abrir_link(event):
-    webbrowser.open("https://github.com/lauanderson-rael")
+# def abrir_link(event):
+#     webbrowser.open("https://github.com/lauanderson-rael")
 
 def fechar_janela():
     print("fechar")
@@ -99,7 +99,7 @@ root = tk.Tk()
 root.title("Gerador de Requerimentos")
 
 # título H1
-tk.Label(root, text="gerador de Requerimentos", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=5)
+tk.Label(root, text="Gerador de Requerimentos", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=5)
 tk.Label(root, text="Sera gerado (AnexoIII, Requerimento e FLPP) em .pdf", font=("Arial", 10, "bold"),fg="red").grid(row=1, column=0, columnspan=2, pady=0)
 
 labels = ["Nome Completo", "Data de Nascimento", "Nome da Mãe", "Nome do Pai", "CPF (com ou sem  .  e  -)", "RG (somente números)", "Data Emissão RG", "PIS/NIS/NIT", "Nº Matricula CEI", "Rua", "Nº da casa", "Bairro"]
@@ -127,9 +127,9 @@ btn_fechar = tk.Button(root, text="Sair", command=fechar_janela, bg='red',fg='wh
 btn_fechar.grid(row=len(labels)+4, column=1, columnspan=2, pady=10)
 # novo
 
-footer = tk.Label(root, text="Desenvolvido por @lauanderson-rael", fg="blue", cursor="hand2")
-footer.grid(row=len(labels)+6, column=0, columnspan=2, pady=10)
-footer.bind("<Button-1>", abrir_link)  # Vincular o clique ao link
+# footer = tk.Label(root, text="Desenvolvido por @lauanderson-rael", fg="blue", cursor="hand2")
+# footer.grid(row=len(labels)+6, column=0, columnspan=2, pady=10)
+# footer.bind("<Button-1>", abrir_link)  # Vincular o clique ao link
 
 pdf1_path = "./assets/edit1.pdf"
 pdf2_path = "./assets/edit2.pdf"

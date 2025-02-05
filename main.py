@@ -23,7 +23,7 @@ def abrir_link(event):
 # interface - menu principal
 root = tk.Tk()
 root.title("Bot auxiliar - Menu Principal")
-root.geometry("500x400")
+root.geometry("500x350")
 
 # titulo
 tk.Label(root, text="O que deseja fazer?", font=("Arial", 16, "bold")).pack(pady=20)
