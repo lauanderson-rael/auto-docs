@@ -7,9 +7,8 @@ Auxiliar a mim e aos meus colegas de trabalho com tarefas repetitivas, onde mani
 - python main.py
 
 ### Apos a execução
- - Sera gerado uma pasta chamada "salvos"
- - Dentro dela tera outra pasta com o nome do CPF da pessoa, "salvos/123.456.789-10_residencia"
- - Nesse caminho irá conter os arquivos gerados em word
+ - Sera gerado duas pastas "/declarações_geradas" e "/requerimentos_gerados"
+ - Dentro dessas pastas irá conter os arquivos 
 
 ### Telas
 
