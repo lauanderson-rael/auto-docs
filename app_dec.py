@@ -25,10 +25,10 @@ def gerar_documentos():
     doc2 = Document("./assets/filiacao.docx")
 
     # Textos a serem substituídos
-    texto_informacoes = 'Na falta de documentos próprios, aptos que comprovem minha residência e domicílio, eu, GERIVALDO BARBOSA, Nacionalidade: BRASILEIRO, estado Civil: SOLTEIRO, Profissão: PESCADOR(A), inscrito(a) no Cadastro de Pessoas Físicas (CPF) sob o nº 029.968.823-26, portador(a) da Carteira de Identidade (RG) nº 024627092003-1 declaro ser residente e domiciliado (a) no endereço:  RUA SÃO BRAZ  Bairro: SUBSTAÇÃO'
+    texto_informacoes = 'Na falta de documentos próprios, aptos que comprovem minha residência e domicílio, eu, FULANO BARBOSA, Nacionalidade: BRASILEIRO, estado Civil: SOLTEIRO, Profissão: PESCADOR(A), inscrito(a) no Cadastro de Pessoas Físicas (CPF) sob o nº 000.000.000-00, portador(a) da Carteira de Identidade (RG) nº 0000000-1, declaro ser residente e domiciliado (a) no endereço:  RUA SÃO BRAZ  Bairro: SUBSTAÇÃO'
     texto_data = 'Coelho Neto, 28 de abril de 2024'
 
-    texto_informacoes2 = "Eu, MARIA HELIELDA SILVA DE FRANÇA, CPF:  083.195.244-07, RG: 067743652018-0, residente no endereço completo: AV COELHO NETO, BAIRRO: CENTRO, declaro ser filiado à Entidade abaixo especificada:"
+    texto_informacoes2 = "Eu, MARIA FULANO, CPF:  000.000.000-00, RG: 0000000-0, residente no endereço completo: AV COELHO NETO, BAIRRO: CENTRO, declaro ser filiado à Entidade abaixo especificada:"
     texto_data2 = "Coelho Neto, 22 de agosto de 2024"
 
     # Percorrendo residencia
