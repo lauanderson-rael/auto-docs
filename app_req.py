@@ -1,8 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import filedialog, messagebox
-from fillpdf import fillpdfs
-import webbrowser
+from fillpdf import fillpdfs 
 
 def gerar_pdfs():
     if not verificar_campos():
@@ -97,12 +96,14 @@ def fechar_janela():
 # interface grafica
 root = tk.Tk()
 root.title("Gerador de Requerimentos")
+root.config(padx=30, pady=10)
+
 
 # título H1
 tk.Label(root, text="Gerador de Requerimentos", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=5)
 tk.Label(root, text="Sera gerado (AnexoIII, Requerimento e FLPP) em .pdf", font=("Arial", 10, "bold"),fg="red").grid(row=1, column=0, columnspan=2, pady=0)
 
-labels = ["Nome Completo", "Data de Nascimento", "Nome da Mãe", "Nome do Pai", "CPF (com ou sem  .  e  -)", "RG (somente números)", "Data Emissão RG", "PIS/NIS/NIT", "Nº Matricula CEI", "Rua", "Nº da casa", "Bairro"]
+labels = ["Nome Completo", "Data de Nascimento (dd/mm/aa)", "Nome da Mãe", "Nome do Pai", "CPF (com ou sem  .  e  -)", "RG (somente números)", "Data Emissão RG (dd/mm/aa)", "PIS/NIS/NIT", "Nº Matricula CEI", "Rua", "Nº da casa", "Bairro"]
 entries = []
 
 # Preenchendo os campos com Labels e Entry

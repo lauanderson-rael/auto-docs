@@ -1,22 +1,63 @@
-## Automação para sobrescrever e salvar arquivos .docx e PDFs interativos 
-### objetivo
-Auxiliar a mim e aos meus colegas de trabalho com tarefas repetitivas, onde manipulavamos arquivo word e pdfs interativos, preenchendo campos e salvando os arquivos com seus respectivos nomes.
-### como rodar
-- pip install python-docx
-- pip install fillpdf
-- python main.py
+# **Automação de Preenchimento de Documentos - Descrição e Guia**
 
-### Apos a execução
- - Sera gerado duas pastas "/declarações_geradas" e "/requerimentos_gerados"
- - Dentro dessas pastas irá conter os arquivos 
+## **Visão Geral**
 
-### Telas
+Este projeto automatiza o processo de preenchimento de formulários em documentos Word e PDF com os dados fornecidos por um usuário. A aplicação foi desenvolvida em Python e usa bibliotecas como `python-docx` e `fillpdf` para manipular documentos. O objetivo é otimizar o tempo gasto preenchendo os dados manualmente, reduzindo de 5 a 7 minutos para apenas alguns segundos por documento.
 
-<img style="margin: 0 -32px" src="./images/image1.png" alt="image1" width="700px"><br>
-<img src="./images/image2.png" alt="image1" width="700px"><br>
-<img src="./images/image3.png" alt="image1" width="700px"><br>
+**Funcionalidades:**
+- Preenchimento automático de dados em documentos Word e PDF.
+- Interface gráfica para inserção de dados.
+- Salvamento automático dos documentos gerados.
 
+---
 
-### Converter para executavel
+## **Tecnologias Utilizadas**
 
- - pyinstaller --noconsole --name=app app.py
+- **Python 3.x**
+- **Bibliotecas:**
+  - `python-docx`: Manipulação de documentos Word.
+  - `fillpdf`: Preenchimento de campos em formulários PDF.
+  - **Interface Gráfica**: [`Tkinter`]
+- **Sistema Operacional**: [Windows/Linux/Mac]
+
+---
+
+## **Instalação e Requisitos**
+
+### **Pré-requisitos**
+
+- Instalar o Python 3
+- Bibliotecas necessárias:
+  ```bash
+  pip install python-docx fillpdf
+### **Instalando e Executando**
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/lauanderson-rael/doc-generator.git
+2. Acesse a pasta do projeto:
+   ```bash
+   cd doc-generator
+3. Instale as Dependencias:
+   ```bash
+   pip install python-docx fillpdf
+4. Abra o aplicativo executando o arquivo principal:
+   ```bash
+   python app.py
+5. Converter para .exe (<span style="color: tomato;">Opcional</span>)
+    ```bash
+    pip install pyinstaller
+     ```
+    ```bash
+    pyinstaller --noconsole --name=app app.py
+     ```
+
+### **Apos a execução**
+ - A interface gráfica solicitará que você insira os dados do cliente.
+ - Após o preenchimento, os documentos Word e PDF serão gerados automaticamente.
+ - Os documentos preenchidos serão salvos na pasta de saída especificada, "/declarações_geradas" ou "/requerimentos_gerados"
+
+### Telas do Sistema
+<img style="margin:" src="./images/image1.png" alt="image1" width="600px"><br><br>
+<img src="./images/image2.png" alt="image1" width="700px"><br><br>
+<img src="./images/image3.png" alt="image1" width="700px"><br><br>

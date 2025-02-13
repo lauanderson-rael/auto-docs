@@ -77,11 +77,12 @@ def verificar_campos():
 
 def fechar_janela():
     print("fechar")
-    root.destroy()
+    root.destroy() 
 
 # INTERFACE GRAFICA
 root = tk.Tk()
 root.title("Gerador de Declarações")
+root.config(padx=30, pady=30)
 
 # título H1
 tk.Label(root, text="Gerador de Declarações", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=2)

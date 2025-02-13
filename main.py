@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-import webbrowser
+import webbrowser 
 
 # Funções para abrir as janelas correspondentes
 def abrir_filiacao_residencia():
