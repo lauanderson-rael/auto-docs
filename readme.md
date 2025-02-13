@@ -13,7 +13,7 @@ Este projeto automatiza o processo de preenchimento de formulários em documento
 
 ## **Tecnologias Utilizadas**
 
-- **Python 3.x**
+- **Python 3**
 - **Bibliotecas:**
   - `python-docx`: Manipulação de documentos Word.
   - `fillpdf`: Preenchimento de campos em formulários PDF.
@@ -43,13 +43,13 @@ Este projeto automatiza o processo de preenchimento de formulários em documento
    pip install python-docx fillpdf
 4. Abra o aplicativo executando o arquivo principal:
    ```bash
-   python app.py
+   python main.py
 5. Converter para .exe (<span style="color: tomato;">Opcional</span>)
     ```bash
     pip install pyinstaller
      ```
     ```bash
-    pyinstaller --noconsole --name=app app.py
+    pyinstaller --noconsole --name=myapp main.py
      ```
 
 ### **Apos a execução**
