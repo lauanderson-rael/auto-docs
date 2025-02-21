@@ -2,7 +2,20 @@ import os
 from docx import Document
 import tkinter as tk
 from tkinter import messagebox
-import webbrowser
+
+import locale
+from datetime import datetime
+
+from tkinter import messagebox, ttk
+#novo
+def obter_data_formatada():
+    try:
+        locale.setlocale(locale.LC_TIME, "pt_BR.utf8")
+    except locale.Error:
+        # Para Windows, caso "pt_BR.utf8" não funcione
+        locale.setlocale(locale.LC_TIME, "Portuguese_Brazil.1252")
+    return datetime.today().strftime("%d de %B de %Y")
+#novo
 
 def gerar_documentos():
     if not verificar_campos():
@@ -64,9 +77,12 @@ def gerar_documentos():
     doc2.save(caminho_arquivo2)
     messagebox.showinfo("Sucesso", f"Declaração de residência e filiação de {nome_completo} criadas com sucesso!")
 
-
-# def abrir_link(event):
-#     webbrowser.open("https://github.com/lauanderson-rael")
+def atualizar_data():
+    if var1.get():  # Se estiver marcado
+        entry_data.delete(0, tk.END)
+        entry_data.insert(0, obter_data_formatada())
+    else:
+        entry_data.delete(0, tk.END)
 
 def verificar_campos():
     for entry in entries:
@@ -88,36 +104,38 @@ root.config(padx=30, pady=30)
 tk.Label(root, text="Gerador de Declarações", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=2)
 tk.Label(root, text="Sera gerado as declarações de FILIAÇÃO E RESIDENCIA em .docx", font=("Arial", 10, "bold"),fg="red").grid(row=1, column=0, columnspan=2, pady=0)
 
-labels = ["Nome Completo", "CPF:", "RG", "Estado civil:", 'Rua e número ("Rua X, 123")', "Bairro", 'Data de hoje ("5 de janeiro de 20XX"):', "Data de Filiação (DD/MM/AAAA)"]
+labels = ["Nome Completo", "CPF:", "RG", "Estado civil:", 'Rua e número ("Rua X, 123")', "Bairro", "Data de Filiação (DD/MM/AAAA)", 'Data do documento ("5 de maio de 20XX"):']
 entries = []
 
 # Preenchendo os campos com Labels e Entry
 for i, label in enumerate(labels):
     tk.Label(root, text=label).grid(row=i+2, column=0, padx=5, pady=5)
-    entry = tk.Entry(root, width=70)
-    entry.grid(row=i+2, column=1, padx=5, pady=5)
-    entries.append(entry)
+    if label == "Estado civil:":
+        entry_estado_civil = ttk.Combobox(root, values=["Solteiro", "União estável", "Casado"], state="readonly", width=57)
+        entry_estado_civil.grid(row=i+2, column=1, padx=5, pady=5)
+        entry_estado_civil.current(0)
+    else:
+        entry = tk.Entry(root, width=60)
+        entry.grid(row=i+2, column=1, padx=5, pady=5)
+        entries.append(entry)
 
-entry_nome, entry_cpf, entry_rg, entry_estado_civil,entry_rua, entry_bairro, entry_data, entry_data_filiacao = entries
+entry_nome, entry_cpf, entry_rg, entry_rua, entry_bairro, entry_data_filiacao, entry_data = entries
 
 # Campos de entrada
-
+#novo
+var1 = tk.BooleanVar()
+chk1 = tk.Checkbutton(root, text="Usar data de hoje", variable=var1, command=atualizar_data)
+chk1.grid(row=9, column=1, padx=(250,0), pady=5)
+#novo
 var_sexo = tk.IntVar()
-tk.Radiobutton(root, text="Sexo masculino", variable=var_sexo, value=0).grid(row=10, column=1, padx=0, pady=5)
-tk.Radiobutton(root, text="Sexo feminino", variable=var_sexo, value=1).grid(row=10, column=0, padx=0, pady=5)
+tk.Radiobutton(root, text="Sexo masculino", variable=var_sexo, value=0).grid(row=11, column=1, padx=0, pady=5)
+tk.Radiobutton(root, text="Sexo feminino", variable=var_sexo, value=1).grid(row=11, column=0, padx=0, pady=5)
 
 # Botão para gerar documentos
 btn_gerar = tk.Button(root, text="Gerar Documentos", bg= "azure3" ,command=gerar_documentos)
-btn_gerar.grid(row=11, column=0, columnspan=2, pady=10)
+btn_gerar.grid(row=12, column=0, columnspan=2, pady=10)
 
-# novo
 btn_fechar = tk.Button(root, text="Sair", command=fechar_janela, bg='red',fg='white', width=5)
-btn_fechar.grid(row=11, column=1, columnspan=2, pady=10)
-# novo
-
-# Footer com o nome do criador
-# footer = tk.Label(root, text="Desenvolvido por @lauanderson-rael", fg="blue", cursor="hand2")
-# footer.grid(row=12, column=0, columnspan=2, pady=10)
-# footer.bind("<Button-1>", abrir_link) 
+btn_fechar.grid(row=12, column=1, columnspan=2, pady=10)
 
 root.mainloop()
