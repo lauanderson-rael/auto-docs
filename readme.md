@@ -34,10 +34,10 @@ Este projeto automatiza o processo de preenchimento de formulários em documento
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/lauanderson-rael/doc-generator.git
+   git clone https://github.com/lauanderson-rael/auto-docs.git
 2. Acesse a pasta do projeto:
    ```bash
-   cd doc-generator
+   cd auto-docs
 3. Instale as Dependencias:
    ```bash
    pip install python-docx fillpdf
