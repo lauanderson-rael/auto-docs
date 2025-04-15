@@ -14,7 +14,7 @@ def substituir_texto_tabela(doc, texto_antigo, texto_novo):
                             run.text = run.text.replace(texto_antigo, texto_novo)
 
 # Caminho para o arquivo Word
-caminho_arquivo = 'sociocart2.docx'
+caminho_arquivo = './assets/sociocart2.docx'
 
 # Carregar o documento
 doc = Document(caminho_arquivo)
@@ -28,7 +28,7 @@ substituicoes = {
     "NATURALIDADE": "São Paulo - SP",
     "DATA_NASC": "01/01/1980",
     "EST_CIVIL": "Casado",
-    "NUM_RG1234567": "12.345.678-9",
+    "NUM_RG_1234567": "12.345.678-9",
     "NUM_CPF1234567": "123.456.789-00",
     "DATA_EMISS": "15/03/2000",
     "N_SIND": "1234",
