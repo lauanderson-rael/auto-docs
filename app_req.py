@@ -1,7 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import filedialog, messagebox
-from fillpdf import fillpdfs 
+from fillpdf import fillpdfs
 
 def gerar_pdfs():
     if not verificar_campos():
@@ -86,8 +86,10 @@ def verificar_campos():
             return False
     return True
 
-# def abrir_link(event):
-#     webbrowser.open("https://github.com/lauanderson-rael")
+def voltar_menu_principal():
+    print("Voltando ao Menu Principal")
+    root.destroy()
+    os.system("python main.py")
 
 def fechar_janela():
     print("fechar")
@@ -115,22 +117,21 @@ for i, label in enumerate(labels):
 
 entry_nome, entry_data_nasc, entry_nome_mae, entry_nome_pai, entry_cpf, entry_rg, entry_data_emissao_rg, entry_pis, entry_cei, entry_rua, entry_numero, entry_bairro = entries
 
-var_sexo = tk.StringVar(value="M")
+var_sexo = tk.StringVar(value="F")
 tk.Label(root, text="Sexo").grid(row=len(labels)+2, column=0, padx=5, pady=5)
-tk.Radiobutton(root, text="Masculino", variable=var_sexo, value="M").grid(row=len(labels)+2, column=1, padx=5, pady=5)
-tk.Radiobutton(root, text="Feminino", variable=var_sexo, value="F").grid(row=len(labels)+3, column=1, padx=5, pady=5)
+tk.Radiobutton(root, text="Feminino", variable=var_sexo, value="F").grid(row=len(labels)+2, column=1, padx=5, pady=5, sticky='w')
+tk.Radiobutton(root, text="Masculino", variable=var_sexo, value="M").grid(row=len(labels)+2, column=1, padx=(5,5), pady=5, )
 
 btn_gerar = tk.Button(root, text="Gerar PDFs", command=gerar_pdfs, bg='azure3', width=10)
-btn_gerar.grid(row=len(labels)+4, column=0, columnspan=2, pady=10)
+btn_gerar.grid(row=len(labels)+4, column=1, padx=10, pady=10, sticky='w')
 
-# novo
+
+btn_voltar = tk.Button(root, text="Menu Principal", command=voltar_menu_principal, bg='azure3')
+btn_voltar.grid(row=len(labels)+4, column=1, padx=10, pady=10,)
+
+
 btn_fechar = tk.Button(root, text="Sair", command=fechar_janela, bg='red',fg='white', width=5)
-btn_fechar.grid(row=len(labels)+4, column=1, columnspan=2, pady=10)
-# novo
-
-# footer = tk.Label(root, text="Desenvolvido por @lauanderson-rael", fg="blue", cursor="hand2")
-# footer.grid(row=len(labels)+6, column=0, columnspan=2, pady=10)
-# footer.bind("<Button-1>", abrir_link)  # Vincular o clique ao link
+btn_fechar.grid(row=len(labels)+4, column=1, padx=10, pady=10, sticky='e')
 
 pdf1_path = "./assets/edit1.pdf"
 pdf2_path = "./assets/edit2.pdf"

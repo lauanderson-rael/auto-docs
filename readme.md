@@ -61,3 +61,4 @@ Este projeto automatiza o processo de preenchimento de formulários em documento
 <img style="margin:" src="./images/image1.png" alt="image1" width="600px"><br><br>
 <img src="./images/image2.png" alt="image1" width="700px"><br><br>
 <img src="./images/image3.png" alt="image1" width="700px"><br><br>
+<img src="./images/image4.png" alt="image1" width="700px"><br><br>

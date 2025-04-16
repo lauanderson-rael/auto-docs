@@ -5,9 +5,7 @@ from tkinter import messagebox
 
 # Função para substituir texto nas células da tabela sem perder a formatação
 def substituir_texto_tabela(doc, texto_antigo, texto_novo):
-    # Loop através de todas as tabelas no documento
     for tabela in doc.tables:
-        # Loop através de todas as linhas e células da tabela
         for linha in tabela.rows:
             for celula in linha.cells:
                 for par in celula.paragraphs:  # Percorrer todos os parágrafos dentro da célula
@@ -19,9 +17,13 @@ def fechar_janela():
     print("fechar")
     root.destroy()
 
+def voltar_menu_principal():
+    print("Voltando ao Menu Principal")
+    root.destroy()
+    os.system("python main.py")
+
 # Função para gerar a carteira
 def gerar_carteira():
-    # Pegando os dados dos campos de entrada
     nome_pai = entradas["Nome do Pai"].get()
     nome_mae = entradas["Nome da Mãe"].get()
     nome_rua = entradas["Nome da Rua e Nº"].get()
@@ -38,7 +40,6 @@ def gerar_carteira():
 
     # Caminho para o arquivo Word
     caminho_arquivo = './assets/sociocart2.docx'
-
     # Verifique se o arquivo de entrada existe
     if not os.path.exists(caminho_arquivo):
         messagebox.showerror("Erro", "O arquivo de entrada 'sociocart2.docx' não foi encontrado!")
@@ -79,12 +80,12 @@ def gerar_carteira():
     messagebox.showinfo("Sucesso", "A carteira foi criada com sucesso!")
 
 
-# janela principal
+# interface grafica
 root = tk.Tk()
 root.title("Gerador de Carteira de Sócio")
-root.config(padx=30, pady=30)
+root.config(padx=70, pady=5)
 
-# Header (título principal e subtítulo explicativo)
+# Header
 tk.Label(root, text="Gerador de Carteira de Sócio", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=(0, 5))
 tk.Label(root, text="Será gerada a carteira com os dados preenchidos", font=("Arial", 10, "bold"), fg="red").grid(row=1, column=0, columnspan=2, pady=(0, 10))
 
@@ -115,13 +116,14 @@ for i, campo in enumerate(campos):
     entrada.grid(row=i+2, column=1, padx=10, pady=5)
     entradas[campo] = entrada
 
-# Botão para gerar a carteira
 btn_gerar = tk.Button(root, text="Gerar Carteira", bg="azure3", command=gerar_carteira)
-btn_gerar.grid(row=len(campos)+2, column=0, columnspan=2, pady=20)
+btn_gerar.grid(row=len(campos)+2, column=1, padx=10, pady=20, sticky='w')
 
-# Botão para sair
-btn_fechar = tk.Button(root, text="Sair", command=fechar_janela, bg='red', fg='white', width=5)
-btn_fechar.grid(row=len(campos)+2, column=1)
+btn_voltar = tk.Button(root, text="Menu Principal", command=voltar_menu_principal, bg='azure3')
+btn_voltar.grid(row=len(campos)+2, column=1, padx=10, pady=20,)
 
-# Rodar a interface gráfica
+btn_fechar = tk.Button(root, text="Sair", command=fechar_janela, bg='red', fg='white', width=10)
+btn_fechar.grid(row=len(campos)+2, column=1, padx=10, pady=20, sticky='e')
+
+
 root.mainloop()
