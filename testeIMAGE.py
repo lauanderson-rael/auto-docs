@@ -3,6 +3,16 @@ import os
 import tkinter as tk
 from tkinter import messagebox
 
+# Função para substituir texto nas células da tabela sem perder a formatação
+def substituir_texto_tabela(doc, texto_antigo, texto_novo):
+    for tabela in doc.tables:
+        for linha in tabela.rows:
+            for celula in linha.cells:
+                for par in celula.paragraphs:  # Percorrer todos os parágrafos dentro da célula
+                    for run in par.runs:  # Percorrer todos os runs dentro do parágrafo
+                        if texto_antigo in run.text:
+                            run.text = run.text.replace(texto_antigo, texto_novo)
+
 def fechar_janela():
     print("fechar")
     root.destroy()
