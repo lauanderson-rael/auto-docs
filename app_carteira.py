@@ -32,6 +32,8 @@ def gerar_carteira():
     data_nasc = entradas["Data de Nascimento"].get()
     estado_civil = entradas["Estado Civil"].get()
     num_rg = entradas["Número do RG"].get()
+    # Garantir que o RG tenha 14 caracteres
+    num_rg = num_rg.ljust(15)
     num_cpf = entradas["Número do CPF"].get()
     data_emissao = entradas["Data de Emissão"].get()
     numero_sind = entradas["Número de Inscrição"].get()
@@ -57,8 +59,8 @@ def gerar_carteira():
         "NATURALIDADE": naturalidade,
         "DATA_NASC": data_nasc,
         "EST_CIVIL": estado_civil,
-        "NUM_RG_1234567": num_rg,
-        "NUM_CPF1234567": num_cpf,
+        "12345678900000": num_rg,
+        "123.456.789": num_cpf,
         "DATA_EMISS": data_emissao,
         "N_SIND": numero_sind,
         "NOME_LOCAL": nome_local,
@@ -78,7 +80,6 @@ def gerar_carteira():
     novo_arquivo = os.path.join(nova_pasta, f"{entradas["Nome Completo"].get()}.docx")
     doc.save(novo_arquivo)
     messagebox.showinfo("Sucesso", "A carteira foi criada com sucesso!")
-
 
 # interface grafica
 root = tk.Tk()
