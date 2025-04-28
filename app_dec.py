@@ -91,12 +91,9 @@ def verificar_campos():
             return False
     return True
 
-def voltar_menu_principal():
-    print("Voltando ao Menu Principal")
-    root.destroy()
-    os.system("python main.py")
 
 def fechar_janela():
+    
     print("fechar")
     root.destroy()
 
@@ -140,9 +137,6 @@ tk.Radiobutton(root, text="Sexo feminino", variable=var_sexo, value=1).grid(row=
 btn_gerar = tk.Button(root, text="Gerar Documentos", bg= "azure3" ,command=gerar_documentos)
 btn_gerar.grid(row=12, column=1, padx=10, pady=10, sticky='w')
 
-
-btn_voltar = tk.Button(root, text="Menu Principal", command=voltar_menu_principal, bg='azure3')
-btn_voltar.grid(row=12, column=1, padx=10, pady=20,)
 
 
 btn_fechar = tk.Button(root, text="Sair", command=fechar_janela, bg='red',fg='white', width=5)

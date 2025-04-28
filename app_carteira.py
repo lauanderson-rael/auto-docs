@@ -7,10 +7,6 @@ def fechar_janela():
     print("fechar")
     root.destroy()
 
-def voltar_menu_principal():
-    print("Voltando ao Menu Principal")
-    root.destroy()
-    os.system("python main.py")
 
 # Função para gerar a carteira
 def gerar_carteira():
@@ -109,9 +105,6 @@ for i, campo in enumerate(campos):
 
 btn_gerar = tk.Button(root, text="Gerar Carteira", bg="azure3", command=gerar_carteira)
 btn_gerar.grid(row=len(campos)+2, column=1, padx=10, pady=20, sticky='w')
-
-btn_voltar = tk.Button(root, text="Menu Principal", command=voltar_menu_principal, bg='azure3')
-btn_voltar.grid(row=len(campos)+2, column=1, padx=10, pady=20,)
 
 btn_fechar = tk.Button(root, text="Sair", command=fechar_janela, bg='red', fg='white', width=10)
 btn_fechar.grid(row=len(campos)+2, column=1, padx=10, pady=20, sticky='e')
