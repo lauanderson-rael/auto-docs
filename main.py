@@ -29,24 +29,20 @@ def abrir_link(event):
 # interface - menu principal
 root = tk.Tk()
 root.title("Bot auxiliar - Menu Principal")
-root.geometry("500x365")
+root.geometry("500x280")
 
 # título
 tk.Label(root, text="O que deseja fazer?", font=("Arial", 16, "bold")).pack(pady=20)
 
 # botão declarações
-btn_declaracoes = tk.Button(root, font=4, text="Declarações do Pescador", command=abrir_declaracoes, width=24, bg='azure3', fg='#000')
+btn_declaracoes = tk.Button(root, font=4, text="Declarações do Pescador e Carteira de sócio", command=abrir_declaracoes, width=38, bg='azure3', fg='#000')
 btn_declaracoes.pack(pady=10)
 
 # botão requerimento
-btn_requerimento = tk.Button(root, font=(4), text="Requerimento e +", command=abrir_requerimento, width=24, bg='azure3', fg='#000')
+btn_requerimento = tk.Button(root, font=(4), text="Requerimento, FLPP e AnexoIII", command=abrir_requerimento, width=38, bg='azure3', fg='#000')
 btn_requerimento.pack(pady=10)
 
-# botão carteira de socio
-btn_carteira_socio = tk.Button(root, font=(4), text="Carteira de Socio", command=abrir_carteira_socio, width=24, bg='azure3', fg='#000')
-btn_carteira_socio.pack(pady=10)
-
-btn_fechar = tk.Button(root, font=(1), text="Sair", command=fechar_janela, bg='red', fg='white', width=24)
+btn_fechar = tk.Button(root, font=(1), text="Sair do sistema", command=fechar_janela, bg='red', fg='white', width=38)
 btn_fechar.pack(pady=10)
 
 footer = tk.Label(root, text="Desenvolvido por @lauanderson-rael", fg="blue", cursor="hand2")

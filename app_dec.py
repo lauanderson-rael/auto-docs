@@ -1,37 +1,74 @@
 import os
 from docx import Document
 import tkinter as tk
-from tkinter import messagebox
-
+from tkinter import messagebox , ttk
 import locale
 from datetime import datetime
+from tkinter import filedialog, messagebox
+from fillpdf import fillpdfs
 
-from tkinter import messagebox, ttk
-#novo
-def obter_data_formatada():
+def gerar_carteira(nome, data_nasc, data_emissao, pai, mae, cpf, rg, end, bairro, n_ficha, natu, estado_cv):
+
+    try:
+        campos_carteira = list(fillpdfs.get_form_fields("./assets/CARTEIRA-V4.pdf").keys())
+        data_dict1 = {
+            campos_carteira[0]: pai,
+            campos_carteira[1]: n_ficha,
+            campos_carteira[2]: nome,
+            campos_carteira[3]: data_emissao,#
+            campos_carteira[4]: mae,
+            campos_carteira[5]: end,
+            campos_carteira[6]: bairro,
+            campos_carteira[7]: natu,
+            campos_carteira[8]: data_nasc,
+            campos_carteira[9]: estado_cv,
+            campos_carteira[10]: rg,
+            campos_carteira[11]: cpf,
+            campos_carteira[12]: n_ficha,
+            campos_carteira[13]: data_emissao,
+        }
+
+        output_dir = f"./declaracoes_geradas/{nome}"
+        os.makedirs(output_dir, exist_ok=True)
+        fillpdfs.write_fillable_pdf('./assets/CARTEIRA-V4.pdf', f'{output_dir}/carteira_de_socio.pdf', data_dict1)
+        print("Carteira de socio criada com sucesso!")
+    except Exception as e:
+        messagebox.showerror("Erro", f"Ocorreu um erro: {e}")
+#
+
+def obter_data_formatada(modo="texto"):
     try:
         locale.setlocale(locale.LC_TIME, "pt_BR.utf8")
     except locale.Error:
         # Para Windows, caso "pt_BR.utf8" não funcione
         locale.setlocale(locale.LC_TIME, "Portuguese_Brazil.1252")
-    return datetime.today().strftime("%d de %B de %Y")
-#novo
+
+    if modo == "numerico":
+        return datetime.today().strftime("%d/%m/%Y")
+    else:  # modo == "texto"
+        return datetime.today().strftime("%d de %B de %Y")
 
 def gerar_documentos():
     if not verificar_campos():
         return
 
-    # Obter os valores
     nome_completo = entry_nome.get()
     cpf = entry_cpf.get()
     rg = entry_rg.get()
     sexoF = var_sexo.get() == 1
-    estado_civil = entry_estado_civil.get()
     rua_e_numero = entry_rua.get()
     bairro = entry_bairro.get()
     data = entry_data.get()
     data_filiacao = entry_data_filiacao.get()
     nacionalidade = 'BRASILEIRA' if sexoF else 'BRASILEIRO'
+
+    estado_civil_base = entry_estado_civil.get()
+    if estado_civil_base == "Solteiro(a)":
+        estado_civil = "Solteira" if var_sexo.get() == 1 else "Solteiro"
+    elif estado_civil_base == "Casado(a)":
+        estado_civil = "Casada" if var_sexo.get() == 1 else "Casado"
+    else:
+        estado_civil = "União estável"
 
     # Carregar os documentos
     doc = Document("./assets/residencia.docx")
@@ -75,14 +112,25 @@ def gerar_documentos():
     caminho_arquivo2 = os.path.join(nova_pasta, "declaracao_filiacao.docx")
     doc.save(caminho_arquivo)
     doc2.save(caminho_arquivo2)
-    messagebox.showinfo("Sucesso", f"Declaração de residência e filiação de {nome_completo} criadas com sucesso!")
+    print("Declaracao criadas com sucesso!")
 
-def atualizar_data():
-    if var1.get():  # Se estiver marcado
-        entry_data.delete(0, tk.END)
-        entry_data.insert(0, obter_data_formatada())
-    else:
-        entry_data.delete(0, tk.END)
+    gerar_carteira(
+    nome_completo,
+    entry_data_nasc.get(),
+    data_filiacao,
+    entry_pai.get(),
+    entry_mae.get(),
+    cpf,
+    rg,
+    rua_e_numero,
+    bairro,
+    entry_num_ficha.get(),
+    entry_natu.get(),  # Pode ser fixo ou adicionado como campo também
+    entry_estado_civil.get()
+    )
+    
+    messagebox.showinfo("Sucesso", f"Declaração de residência, filiação e Carteira de Socio de {nome_completo} criadas com sucesso!")
+
 
 def verificar_campos():
     for entry in entries:
@@ -93,27 +141,38 @@ def verificar_campos():
 
 
 def fechar_janela():
-    
     print("fechar")
     root.destroy()
 
+
 # INTERFACE GRAFICA
 root = tk.Tk()
-root.title("Gerador de Declarações")
+root.title("Gerador de Declarações e Carteira de Sócio")
 root.config(padx=30, pady=30)
 
 # título H1
-tk.Label(root, text="Gerador de Declarações", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=2)
-tk.Label(root, text="Sera gerado as declarações de FILIAÇÃO E RESIDENCIA em .docx", font=("Arial", 10, "bold"),fg="red").grid(row=1, column=0, columnspan=2, pady=0)
+tk.Label(root, text="Gerador de Declarações e Carteira de Sócio", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2, pady=2)
+tk.Label(root, text="Serão geradas as declarações de FILIAÇÃO, RESIDÊNCIA e CARTEIRA DE SÓCIO", font=("Arial", 10, "bold"), fg="red").grid(row=1, column=0, columnspan=2, pady=0)
 
-labels = ["Nome Completo", "CPF:", "RG", "Estado civil:", 'Rua e número ("Rua X, 123")', "Bairro", "Data de Filiação (DD/MM/AAAA)", 'Data do documento ("5 de maio de 20XX"):']
+# Labels e campos
+labels = [
+    "Nome Completo", "CPF:", "RG", "Estado civil:",
+    'Rua e número ("Rua X, 123")', "Bairro",
+    "Data de Filiação (DD/MM/AAAA)", 'Data do documento ("5 de maio de 20XX")',
+    "Data de nascimento (DD/MM/AAAA)", "Naturalidade",
+    "Nome do pai", "Nome da mãe", "Número da ficha"
+]
+
 entries = []
 
-# Preenchendo os campos com Labels e Entry
 for i, label in enumerate(labels):
-    tk.Label(root, text=label).grid(row=i+2, column=0, padx=5, pady=5)
+    # Labels verdes a partir do índice 8
+    cor = "green" if i >= 8 else "black"
+    peso = "bold" if i >= 8 else ' '
+    tk.Label(root, text=label, fg=cor,  font=("default", 10, peso)).grid(row=i+2, column=0, padx=5, pady=5, sticky='w')
+
     if label == "Estado civil:":
-        entry_estado_civil = ttk.Combobox(root, values=["Solteiro", "União estável", "Casado"], state="readonly", width=57)
+        entry_estado_civil = ttk.Combobox(root, values=["Solteiro(a)", "Casado(a)", "União estável"], state="readonly", width=57)
         entry_estado_civil.grid(row=i+2, column=1, padx=5, pady=5)
         entry_estado_civil.current(0)
     else:
@@ -121,25 +180,29 @@ for i, label in enumerate(labels):
         entry.grid(row=i+2, column=1, padx=5, pady=5)
         entries.append(entry)
 
-entry_nome, entry_cpf, entry_rg, entry_rua, entry_bairro, entry_data_filiacao, entry_data = entries
+(entry_nome, entry_cpf, entry_rg, entry_rua, entry_bairro,
+ entry_data_filiacao, entry_data, entry_data_nasc, entry_natu,
+ entry_pai, entry_mae, entry_num_ficha) = entries
 
-# Campos de entrada
-#novo
-var1 = tk.BooleanVar()
-chk1 = tk.Checkbutton(root, text="Usar data de hoje", variable=var1, command=atualizar_data)
-chk1.grid(row=9, column=1, padx=(250,0), pady=5)
-#novo
+# valores padrao
+entry_natu.insert(0,'Coelho Neto-MA')
+entry_data_filiacao.insert(0, obter_data_formatada("numerico"))
+entry_data.insert(0, obter_data_formatada())
+
+
+# Sexo (Radio Buttons)
 var_sexo = tk.IntVar()
-tk.Radiobutton(root, text="Sexo masculino", variable=var_sexo, value=0).grid(row=11, column=1, padx=0, pady=5)
-tk.Radiobutton(root, text="Sexo feminino", variable=var_sexo, value=1).grid(row=11, column=0, padx=0, pady=5)
+frame_sexo = tk.Frame(root)
+frame_sexo.grid(row=len(labels)+3, column=0, columnspan=2, pady=5)
+tk.Radiobutton(frame_sexo, text="Sexo masculino", variable=var_sexo, value=0).pack(side="left", padx=10)
+tk.Radiobutton(frame_sexo, text="Sexo feminino", variable=var_sexo, value=1).pack(side="left", padx=10)
 
-# Botão para gerar documentos
-btn_gerar = tk.Button(root, text="Gerar Documentos", bg= "azure3" ,command=gerar_documentos)
-btn_gerar.grid(row=12, column=1, padx=10, pady=10, sticky='w')
-
-
-
-btn_fechar = tk.Button(root, text="Sair", command=fechar_janela, bg='red',fg='white', width=5)
-btn_fechar.grid(row=12, column=1, padx=10, pady=10, sticky='e')
+# Botões
+btn_frame = tk.Frame(root)
+btn_frame.grid(row=len(labels)+4, column=0, columnspan=2, pady=10)
+btn_gerar = tk.Button(btn_frame, text="Gerar Documentos", bg="azure3", command=gerar_documentos, width=20)
+btn_gerar.pack(side="left", padx=10)
+btn_fechar = tk.Button(btn_frame, text="Sair", command=fechar_janela, bg='red', fg='white', width=10)
+btn_fechar.pack(side="left", padx=10)
 
 root.mainloop()
