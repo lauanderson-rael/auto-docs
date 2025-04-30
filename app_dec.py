@@ -15,7 +15,7 @@ def gerar_carteira(nome, data_nasc, data_emissao, pai, mae, cpf, rg, end, bairro
             campos_carteira[0]: pai,
             campos_carteira[1]: n_ficha,
             campos_carteira[2]: nome,
-            campos_carteira[3]: data_emissao,#
+            campos_carteira[3]: data_emissao + "  ",#
             campos_carteira[4]: mae,
             campos_carteira[5]: end,
             campos_carteira[6]: bairro,
@@ -67,6 +67,10 @@ def gerar_documentos():
         estado_civil = "Solteira" if var_sexo.get() == 1 else "Solteiro"
     elif estado_civil_base == "Casado(a)":
         estado_civil = "Casada" if var_sexo.get() == 1 else "Casado"
+    elif estado_civil_base == "Divorciado(a)":
+        estado_civil = "Divorciada" if var_sexo.get() == 1 else "Divorciado"
+    elif estado_civil_base == "Viúvo(a)":
+        estado_civil = "Viúva" if var_sexo.get() == 1 else "Viúvo"
     else:
         estado_civil = "União estável"
 
@@ -172,7 +176,7 @@ for i, label in enumerate(labels):
     tk.Label(root, text=label, fg=cor,  font=("default", 10, peso)).grid(row=i+2, column=0, padx=5, pady=5, sticky='w')
 
     if label == "Estado civil:":
-        entry_estado_civil = ttk.Combobox(root, values=["Solteiro(a)", "Casado(a)", "União estável"], state="readonly", width=57)
+        entry_estado_civil = ttk.Combobox(root, values=["União estável", "Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viúvo(a)",  ], state="readonly", width=57)
         entry_estado_civil.grid(row=i+2, column=1, padx=5, pady=5)
         entry_estado_civil.current(0)
     else:
@@ -186,7 +190,7 @@ for i, label in enumerate(labels):
 
 # valores padrao
 entry_natu.insert(0,'Coelho Neto-MA')
-entry_data_filiacao.insert(0, obter_data_formatada("numerico"))
+#entry_data_filiacao.insert(0, obter_data_formatada("numerico"))
 entry_data.insert(0, obter_data_formatada())
 
 
