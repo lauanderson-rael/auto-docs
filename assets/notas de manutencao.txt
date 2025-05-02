@@ -1,0 +1,3 @@
+Para atualizar os documentos em pdf. Basta editar os campos de ano ex: 2025, 2026, 2027
+
+o arquivo edit.pdf, precisa de uma atulizcao, o campo de ano ainda nao esta como " caixa de formulario"
